@@ -1,0 +1,30 @@
+{
+  "name": "umn-marching-band-attendance",
+  "version": "0.0.0",
+  "description": "A web application to take attendance, request abscenses, track makeup time, etc.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "Attendance"
+  ],
+  "author": "Josh Hansen <joshua.hansen.a@gmail.com>",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "compression": "^1.5.2",
+    "csurf": "^1.8.3",
+    "express": "^4.13.3",
+    "express-stormpath": "^1.0.6",
+    "forms": "^1.1.3",
+    "jade": "^1.11.0",
+    "logfmt": "^1.2.0",
+    "mongoose": "^4.1.3",
+    "morgan": "^1.6.1",
+    "promise": "^7.0.4",
+    "serve-favicon": "^2.3.0",
+    "throng": "^1.0.0",
+    "xtend": "^4.0.0"
+  }
+}
