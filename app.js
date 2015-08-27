@@ -108,7 +108,7 @@ function web(app, config){
   var icon = path.join(__dirname, 'public', 'favicon.ico');
   var errs = errors(config.verbose);
 
-  web.set('views', './views');
+  web.set('views', './views')
     .set('view engine', 'jade')
     .use(compression())
     .use(favicon(icon))
