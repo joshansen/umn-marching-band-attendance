@@ -2,6 +2,9 @@ var logger = require("logfmt");
 var EventEmitter = require("events").EventEmitter;
 
 var connections = require("./connections");
+var AttendanceRecordsModel = require("./models/attendance-records");
+var AbsenceRequestsModel = require("./models/absence-requests");
+var EventsModel = require("./models/events");
 
 function App(config) {
   EventEmitter.call(this);
@@ -20,7 +23,9 @@ module.exports = function createApp(config){
 App.prototype = Object.create(EventEmitter.prototype);
 
 App.prototype.onConnected = function() {
-  //this.Article = ArticleModel(this.connections.db);
+  this.AttendanceRecords = AttendanceRecordsModel(this.connections.db);
+  this.AbscenceRequests = AbscenceRequestsModel(this.connections.db);
+  this.Events = EventsModel(this.connections.db);
   this.onReady();
 };
 
