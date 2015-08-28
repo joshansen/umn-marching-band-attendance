@@ -8,6 +8,8 @@ module.exports = {
   	stormpath_api_key_id: process.env.STORMPATH_API_KEY_ID,
  	stormpath_api_key_secret: process.env.STORMPATH_API_KEY_SECRET,
  	stormpath_secret_key: process.env.STORMPATH_SECRET_KEY,
- 	stormpath_url: process.env.STORMPATH_URL
+ 	stormpath_url: process.env.STORMPATH_URL,
+
+ 	environment: process.env.NODE_ENV || "devlopment"
 
 };
