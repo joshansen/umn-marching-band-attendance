@@ -1,5 +1,7 @@
 var express = require('express');
 var path = require('path');
+var stormpath = require('express-stormpath');
+var logger = require('logfmt');
 
 var profile = require("./controllers/profile");
 

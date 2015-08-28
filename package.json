@@ -4,7 +4,7 @@
   "description": "A web application to take attendance, request abscenses, track makeup time, etc.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "keywords": [
     "Attendance"
@@ -15,6 +15,8 @@
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
     "csurf": "^1.8.3",
+    "dotenv": "^1.2.0",
+    "events": "^1.0.2",
     "express": "^4.13.3",
     "express-stormpath": "^1.0.6",
     "forms": "^1.1.3",
