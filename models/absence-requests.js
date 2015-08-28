@@ -25,26 +25,26 @@ module.exports = function createAbsenceRequestsModel(connection){
 
 	Schema.statics = {
 		get: function(id) {
-	      return new Promise(function(resolve, reject) {
-	        this.findById(id).exec(function(err, record) {
-	          if (err) return reject(err);
-	          if (!record) return reject(new errors.ArticleNotFound());
-	          resolve(record);
-	        });
-	      }.bind(this));
-	    },
+			return new Promise(function(resolve, reject) {
+				this.findById(id).exec(function(err, record) {
+					if (err) return reject(err);
+					if (!record) return reject(new errors.ArticleNotFound());
+					resolve(record);
+				});
+			}.bind(this));
+		},
 
-	    //TODO Create this function
-	    getAllForUser: function(user) {
-	      return;
-	    }
+		//TODO Create this function
+		getAllForUser: function(user) {
+			return;
+		}
 
 	};
 
 	Schema.methods = {
 		createAttendanceRecords: function(userId) {
 			return;
-	    },
+		},
 
 	};
 

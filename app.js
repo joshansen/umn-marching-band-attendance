@@ -8,35 +8,35 @@ var EventsModel = require("./models/events");
 var BandMemberModel = require("./models/band-members");
 
 function App(config) {
-  EventEmitter.call(this);
+	EventEmitter.call(this);
 
-  this.config = config;
-  this.connections = connections(config.mongo_url);
-  this.connections.once("ready", this.onConnected.bind(this));
-  this.connections.once("lost", this.onLost.bind(this));
+	this.config = config;
+	this.connections = connections(config.mongo_url);
+	this.connections.once("ready", this.onConnected.bind(this));
+	this.connections.once("lost", this.onLost.bind(this));
 }
 
 
 module.exports = function createApp(config){
-  return new App(config);
+	return new App(config);
 };
 
 App.prototype = Object.create(EventEmitter.prototype);
 
 App.prototype.onConnected = function() {
-  this.AttendanceRecords = AttendanceRecordsModel(this.connections.db);
-  this.AbscenceRequests = AbsenceRequestsModel(this.connections.db);
-  this.Events = EventsModel(this.connections.db);
-  this.BandMembers = BandMemberModel(this.connections.db);
-  this.onReady();
+	this.AttendanceRecords = AttendanceRecordsModel(this.connections.db);
+	this.AbscenceRequests = AbsenceRequestsModel(this.connections.db);
+	this.Events = EventsModel(this.connections.db);
+	this.BandMembers = BandMemberModel(this.connections.db);
+	this.onReady();
 };
 
 App.prototype.onReady = function() {
-  logger.log({ type: "info", msg: "app.ready" });
-  this.emit("ready");
+	logger.log({ type: "info", msg: "app.ready" });
+	this.emit("ready");
 };
 
 App.prototype.onLost = function() {
-  logger.log({ type: "info", msg: "app.lost" });
-  this.emit("lost");
+	logger.log({ type: "info", msg: "app.lost" });
+	this.emit("lost");
 };

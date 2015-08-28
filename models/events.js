@@ -20,18 +20,18 @@ module.exports = function createEventsModel(connection){
 
 	Schema.statics = {
 		get: function(id) {
-	      return new Promise(function(resolve, reject) {
-	        this.findById(id).exec(function(err, record) {
-	          if (err) return reject(err);
-	          if (!record) return reject(new errors.ArticleNotFound());
-	          resolve(record);
-	        });
-	      }.bind(this));
-	    },
+			return new Promise(function(resolve, reject) {
+				this.findById(id).exec(function(err, record) {
+					if (err) return reject(err);
+					if (!record) return reject(new errors.ArticleNotFound());
+					resolve(record);
+				});
+			}.bind(this));
+		},
 
-	    getAll: function(id) {
-	    	return;
-	    }
+		getAll: function(id) {
+			return;
+		}
 	};
 
 	var Events = connection.model("Events", Schema);
