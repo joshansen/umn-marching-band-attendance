@@ -8,8 +8,8 @@ var profile = require("./controllers/profile");
 module.exports = function (app){
 	return new express.Router()
 		.get('/',  showHome)
-		.use('/profile',stormpath.loginRequired, profile())
-		.use(express.static(path.join(__dirname, 'public')));
+		.use('/profile', stormpath.loginRequired, profile())
+		.use("/public", express.static('public'));
 
 	function showHome(req, res, next){
 		res.render('home', {title: 'Welcome'});
