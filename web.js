@@ -1,22 +1,22 @@
-var express = require('express');
-var stormpath = require('express-stormpath');
-var bodyParser = require('body-parser');
-var favicon = require('serve-favicon');
-var path = require('path');
-var compression = require('compression');
+var express = require("express");
+var stormpath = require("express-stormpath");
+var bodyParser = require("body-parser");
+var favicon = require("serve-favicon");
+var path = require("path");
+var compression = require("compression");
 
-var errors = require('./errors');
-var logs = require('./logs');
+var errors = require("./errors");
+var logs = require("./logs");
 var router = require("./router");
 
 module.exports = function Web(app, config){
   var web = express();
 
-  var icon = path.join(__dirname, 'public', 'favicon.ico');
+  var icon = path.join(__dirname, "public", "favicon.ico");
   var errs = errors(config.verbose);
 
-  web.set('views', './views')
-    .set('view engine', 'jade')
+  web.set("views", "./views")
+    .set("view engine", "jade")
     .use(compression())
     .use(favicon(icon))
     .use(logs(config.verbose))

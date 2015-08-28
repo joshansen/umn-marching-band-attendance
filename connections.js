@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
-var logger = require('logfmt');
-var EventEmitter = require('events').EventEmitter;
+var mongoose = require("mongoose");
+var logger = require("logfmt");
+var EventEmitter = require("events").EventEmitter;
 
 function Connector(mongoUrl) {
   EventEmitter.call(this);
@@ -9,27 +9,27 @@ function Connector(mongoUrl) {
   var readyCount = 0;
 
   this.db = mongoose.createConnection(mongoUrl)
-    .on('connected', function() {
-      logger.log({ type: 'info', msg: 'connected', service: 'mongodb' });
+    .on("connected", function() {
+      logger.log({ type: "info", msg: "connected", service: "mongodb" });
       ready();
     })
-    .on('error', function(err) {
-      logger.log({ type: 'error', msg: err, service: 'mongodb' });
+    .on("error", function(err) {
+      logger.log({ type: "error", msg: err, service: "mongodb" });
     })
-    .on('close', function(str) {
-      logger.log({ type: 'error', msg: 'closed', service: 'mongodb' });
+    .on("close", function(str) {
+      logger.log({ type: "error", msg: "closed", service: "mongodb" });
     })
-    .on('disconnected', function() {
-      logger.log({ type: 'error', msg: 'disconnected', service: 'mongodb' });
+    .on("disconnected", function() {
+      logger.log({ type: "error", msg: "disconnected", service: "mongodb" });
       lost();
     });
 
   function ready() {
-      self.emit('ready');
+      self.emit("ready");
   }
 
   function lost() {
-    self.emit('lost');
+    self.emit("lost");
   }
 }
 

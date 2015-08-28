@@ -1,7 +1,7 @@
 module.exports = {
 
 	port: process.env.PORT || 3000,
-	mongo_url: process.env.MONGOLAB_URI || 'mongodb://localhost:27017/appDev',
+	mongo_url: process.env.MONGOLAB_URI || "mongodb://localhost:27017/appDev",
 
 	verbose: process.env.VERBOSE || false,
 

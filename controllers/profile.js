@@ -1,9 +1,9 @@
-var express = require('express');
-var forms = require('forms');
-var csurf = require('csurf');
-var collectFormErrors = require('express-stormpath/lib/helpers').collectFormErrors;
-var stormpath = require('express-stormpath');
-var extend = require('xtend');
+var express = require("express");
+var forms = require("forms");
+var csurf = require("csurf");
+var collectFormErrors = require("express-stormpath/lib/helpers").collectFormErrors;
+var stormpath = require("express-stormpath");
+var extend = require("xtend");
 
 // Declare the schema of our form:
 
@@ -24,8 +24,8 @@ var profileForm = forms.create({
 
 function renderForm(req,res,locals){
 
-  res.render('profile', extend({
-    title: 'My Profile',
+  res.render("profile", extend({
+    title: "My Profile",
     csrfToken: req.csrfToken(),
     givenName: req.user.givenName,
     surname: req.user.surname,
@@ -43,12 +43,12 @@ module.exports = function profile(){
 
   var router = express.Router();
 
-  router.use(csurf({ sessionKey: 'stormpathSession' }));
+  router.use(csurf({ sessionKey: "stormpathSession" }));
 
   // Capture all requests, the form library will negotiate
   // between GET and POST requests
 
-  router.all('/', function(req, res) {
+  router.all("/", function(req, res) {
     profileForm.handle(req,{
       success: function(form){
         // The form library calls this success method if the
@@ -104,19 +104,19 @@ module.exports = function profile(){
 
   router.use(function (err, req, res, next) {
     // This handler catches errors for this router
-    if (err.code === 'EBADCSRFTOKEN'){
+    if (err.code === "EBADCSRFTOKEN"){
       // The csurf library is telling us that it can't
       // find a valid token on the form
       if(req.user){
         // session token is invalid or expired.
         // render the form anyways, but tell them what happened
         renderForm(req,res,{
-          errors:[{error:'Your form has expired.  Please try again.'}]
+          errors:[{error:"Your form has expired.  Please try again."}]
         });
       }else{
         // the user's cookies have been deleted, we dont know
         // their intention is - send them back to the home page
-        res.redirect('/');
+        res.redirect("/");
       }
     }else{
       // Let the parent app handle the error

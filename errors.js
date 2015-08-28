@@ -1,5 +1,5 @@
-var express = require('express');
-var logger = require('logfmt');
+var express = require("express");
+var logger = require("logfmt");
 
 module.exports = function Controller(verbose) {
 
@@ -11,7 +11,7 @@ module.exports = function Controller(verbose) {
   };
 
   function notFound(req, res, next) {
-    var err = new Error('Not Found');
+    var err = new Error("Not Found");
     err.status = 404;
     next(err);
   }
@@ -21,24 +21,24 @@ module.exports = function Controller(verbose) {
       return next(err);
     }
     logger.log({
-      type: 'error',
-      msg: err.message || 'middleware error',
-      err: err.stack || 'no stack trace available'
+      type: "error",
+      msg: err.message || "middleware error",
+      err: err.stack || "no stack trace available"
     });
     next(err);
   }
 
   function jsonError(err, req, res, next) {
-    if (req.path.slice(-5) !== '.json') return next(err);
-    if (!req.accepts('application/json')) return next(err);
+    if (req.path.slice(-5) !== ".json") return next(err);
+    if (!req.accepts("application/json")) return next(err);
     res
       .status(err.status || 500)
-      .json({ message: err.message || 'Something went wrong!' });
+      .json({ message: err.message || "Something went wrong!" });
   }
 
   function htmlError(err, req, res, next) {
     res
       .status(err.status || 500)
-      .send(err.message || 'Something went wrong!');
+      .send(err.message || "Something went wrong!");
   }
 };

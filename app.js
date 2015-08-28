@@ -1,15 +1,15 @@
-var logger = require('logfmt');
-var EventEmitter = require('events').EventEmitter;
+var logger = require("logfmt");
+var EventEmitter = require("events").EventEmitter;
 
-var connections = require('./connections');
+var connections = require("./connections");
 
 function App(config) {
   EventEmitter.call(this);
 
   this.config = config;
   this.connections = connections(config.mongo_url);
-  this.connections.once('ready', this.onConnected.bind(this));
-  this.connections.once('lost', this.onLost.bind(this));
+  this.connections.once("ready", this.onConnected.bind(this));
+  this.connections.once("lost", this.onLost.bind(this));
 }
 
 
@@ -25,11 +25,11 @@ App.prototype.onConnected = function() {
 };
 
 App.prototype.onReady = function() {
-  logger.log({ type: 'info', msg: 'app.ready' });
-  this.emit('ready');
+  logger.log({ type: "info", msg: "app.ready" });
+  this.emit("ready");
 };
 
 App.prototype.onLost = function() {
-  logger.log({ type: 'info', msg: 'app.lost' });
-  this.emit('lost');
+  logger.log({ type: "info", msg: "app.lost" });
+  this.emit("lost");
 };

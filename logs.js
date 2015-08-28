@@ -1,7 +1,7 @@
-var morgan = require('morgan');
+var morgan = require("morgan");
 
 module.exports = function Logs(verbose) {
-  return morgan('dev', {
+  return morgan("dev", {
     skip: verbose ? false : skipSuccesses
   });
 
