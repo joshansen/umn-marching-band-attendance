@@ -4,7 +4,7 @@ var timestamps = require("mongoose-timestamps");
 var Promise = require("promise");
 
 var Event = require("./events");
-var AbscenceRequest = require("./abscense-requests");
+var AbsenceRequest = require("./absence-requests");
 
 module.exports = function createAttendanceRecordsModel(connection){
 
@@ -13,11 +13,11 @@ module.exports = function createAttendanceRecordsModel(connection){
 	    createdBy: { type: String, required: true},
 	    present: { type: Boolean, required: true },
 	    minutesMissed: { type: Number, default: 0, min: 0 },
-	    reasonForAbscence: { type: String },
+	    reasonForAbsence: { type: String },
 	    minutesToMakeup: { type: Number, default: 0, required: true },
-	    event: { type: Schema.Types.ObjectId, ref: 'Event', required: true },
+	    event: { type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true },
 	    date: { type: Date },
-	    abscenceRequest: { type: Schema.Types.ObjectId, ref: 'AbscenceRequest' },
+	    absenceRequest: { type: mongoose.Schema.Types.ObjectId, ref: 'AbsenceRequest' },
 	    confirmed: { type: Boolean, default: false },
 	    disputed: { type: Boolean, default: false }
 
