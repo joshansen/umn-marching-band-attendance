@@ -40,3 +40,19 @@ App.prototype.onLost = function() {
 	logger.log({ type: "info", msg: "app.lost" });
 	this.emit("lost");
 };
+
+App.prototype.listEvents = function() {
+	return this.Events.list();
+}
+
+App.prototype.getEvent = function(id) {
+	return this.Events.get(id);
+}
+
+App.prototype.updateEvent = function(id, json) {
+	return this.Events.update(id, json);
+}
+
+App.prototype.addEvent = function(json) {
+	return this.Events.add(json);
+}

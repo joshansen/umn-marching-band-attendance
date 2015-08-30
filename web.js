@@ -5,7 +5,6 @@ var favicon = require("serve-favicon");
 var path = require("path");
 var compression = require("compression");
 
-var errors = require("./errors");
 var logs = require("./logs");
 var router = require("./router");
 
@@ -13,7 +12,6 @@ module.exports = function Web(app, config){
 	var web = express();
 
 	var icon = path.join(__dirname, "public", "favicon.ico");
-	var errs = errors(config.verbose);
 
 	web.set("views", "./views")
 		.set("view engine", "jade")
@@ -31,13 +29,7 @@ module.exports = function Web(app, config){
 		expandCustomData: true
 	}));
 
-	// web.use(errs.notFound)
-	//   .use(errs.log)
-	//   .use(errs.json)
-	//   .use(errs.html);
-
-
-	web.use(router(web));
+	web.use(router(app));
 
 	return web;
 };

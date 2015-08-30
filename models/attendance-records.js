@@ -5,6 +5,7 @@ var Promise = require("promise");
 
 var Event = require("./events");
 var AbsenceRequest = require("./absence-requests");
+var errors = require("./errors");
 
 module.exports = function createAttendanceRecordsModel(connection){
 
@@ -28,11 +29,11 @@ module.exports = function createAttendanceRecordsModel(connection){
 	Schema.statics = {
 		get: function(id) {
 			return new Promise(function(resolve, reject) {
-			this.findById(id).exec(function(err, record) {
-				if (err) return reject(err);
-				if (!record) return reject(new errors.ArticleNotFound());
-				resolve(record);
-			});
+				this.findById(id).exec(function(err, record) {
+					if (err) return reject(err);
+					if (!record) return reject(new errors.RecordNotFound());
+					resolve(record);
+				});
 			}.bind(this));
 		},
 

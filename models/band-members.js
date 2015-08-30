@@ -3,6 +3,8 @@ var logger = require("logfmt");
 var timestamps = require("mongoose-timestamps");
 var Promise = require("promise");
 
+var errors = require("./errors");
+
 module.exports = function createBandMembersModel(connection){
 
 	var Schema = mongoose.Schema({
@@ -18,11 +20,15 @@ module.exports = function createBandMembersModel(connection){
 
 	Schema.statics = {
 		createUser: function(memberId, role){
+			return;
+		},
 
+		updateUserRole: function(userHref, role){
+			return;
 		},
 
 		getByUser: function (userHref){
-
+			return;
 		}
 
 	};
