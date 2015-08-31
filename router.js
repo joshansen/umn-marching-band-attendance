@@ -10,6 +10,7 @@ module.exports = function (app){
 	return new express.Router()
 		.get("/",  showHome)
 		.use("/profile", stormpath.loginRequired, profile())
+		//add in differentiated requirements for creating/ updating vs. viewing
 		.use("/", stormpath.loginRequired, events(app))
 		.use("/public", express.static("public"));
 

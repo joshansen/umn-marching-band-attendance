@@ -10,7 +10,7 @@ if (config.environment != "production") require("dotenv").load();
 
 
 http.globalAgent.maxSockets = Infinity;
-throng(start, { lifetime: Infinity});
+throng(start, { lifetime: Infinity });
 
 function start() {
 	logger.log({

@@ -5,7 +5,6 @@ var Promise = require("promise");
 
 var Event = require("./events");
 var AbsenceRequest = require("./absence-requests");
-var errors = require("./errors");
 
 module.exports = function createAttendanceRecordsModel(connection){
 

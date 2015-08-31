@@ -41,18 +41,14 @@ App.prototype.onLost = function() {
 	this.emit("lost");
 };
 
-App.prototype.listEvents = function() {
-	return this.Events.list();
-}
-
-App.prototype.getEvent = function(id) {
-	return this.Events.get(id);
+App.prototype.listEvents = function(queryArray) {
+	return this.Events.list(queryArray);
 }
 
 App.prototype.updateEvent = function(id, json) {
 	return this.Events.update(id, json);
 }
 
-App.prototype.addEvent = function(json) {
+App.prototype.addEvents = function(json) {
 	return this.Events.add(json);
 }
