@@ -49,6 +49,6 @@ App.prototype.updateEvent = function(id, json) {
 	return this.Events.update(id, json);
 }
 
-App.prototype.addEvents = function(json) {
-	return this.Events.add(json);
+App.prototype.addEvents = function(json, fullName, href) {
+	return this.Events.add(json, fullName, href);
 }

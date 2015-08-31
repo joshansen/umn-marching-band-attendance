@@ -7,8 +7,8 @@ var Promise = require("promise");
 module.exports = function createEventsModel(connection){
 
 	var Schema = mongoose.Schema({
-		//should make this automatic from the req.user??
-		createdBy: { type: String, required: true},
+		createdByUser: { type: String, required: true},
+		createdByHref: { type: String, required: true},
 		name: { type: String, required: true },
 		startDateTime: { type: Date, required: true },
 		endDateTime: { type: Date, required: true },
@@ -23,7 +23,7 @@ module.exports = function createEventsModel(connection){
 	Schema.set('toJSON');
 
 	Schema.statics = {
-		//supports for url query string: date range, createdBy, type, and id
+		//supports for url query string: date range, createdByHref, createdByName, type, deleted and id
 		list: function(queryArray) {
 			return new Promise(function(resolve, reject){
 				this.find(createQuery(queryArray)).exec(function(err, records){
@@ -35,7 +35,7 @@ module.exports = function createEventsModel(connection){
 			function createQuery(queryArray){
 				if(queryArray.length === 0) return {};
 
-				var querys = ["startDateLessThan", "startDateGreaterThan", "createdBy", "type", "id"];
+				var querys = ["startDateLessThan", "startDateGreaterThan", "createdByUser", "createdByHref", "type", "id", "deleted"];
 				var query = {};
 				var keys = objectKeys(queryArray);
 
@@ -48,11 +48,12 @@ module.exports = function createEventsModel(connection){
 				else if(keys.indexOf("startDateGreaterThan") != -1){
 					query["startDateTime"] = {"$gt": queryArray["startDateGreaterThan"]};
 				}
-				if(keys.indexOf("createdBy") != -1) query["createdBy"] = queryArray["createdBy"];
+				if(keys.indexOf("createdByUser") != -1) query["createdByUser"] = queryArray["createdByUser"];
+				if(keys.indexOf("createdByHref") != -1) query["createdByHref"] = queryArray["createdByHref"];
 				if(keys.indexOf("type") != -1) query["type"] = queryArray["type"];
 				if(keys.indexOf("id") != -1) query["_id"] = queryArray["id"];
+				if(keys.indexOf("deleted") != -1) query["deleted"] = queryArray["deleted"];
 
-				//logger.log({query:JSON.stringify(query)});
 				return query;
 
 				function objectKeys(obj){
@@ -65,7 +66,6 @@ module.exports = function createEventsModel(connection){
 			}
 		},
 
-		//TODO figure out why this isn't sending the updated record? Something about interacting promises or something.
 		update: function(id, json) {
 			return new Promise(function(resolve, reject){
 				this.findOne({"_id":id}, function(err, record){
@@ -86,9 +86,20 @@ module.exports = function createEventsModel(connection){
 			}.bind(this));
 		},
 
-		//add functionality to deal with one failing, etc.
-		add: function(json) {
+		//TODO add functionality to deal with one failing, etc.
+		add: function(json, fullName, href) {
 			return new Promise(function(resolve, reject){
+				if(json instanceof Array){
+					json.forEach(function(val){
+						val["createdByUser"] = fullName;
+						val["createdByHref"] = href;
+					});
+				}
+				else{
+					json["createdByUser"] = fullName;
+					json["createdByHref"] = href;
+				}
+
 				this.create(json, onSave);
 
 				function onSave(err, records) {
