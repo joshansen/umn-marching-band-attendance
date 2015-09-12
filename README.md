@@ -4,12 +4,13 @@ Attempt to make an attendance application for the University of Minnesota marchi
 
 ## Getting Started
 
-	Heroku
-	Addons: Mongolab, Stormpath
-	Getting config variables
-	Setting them up in .env file
+Heroku
+Addons: Mongolab, Stormpath
+Getting config variables
+Setting them up in .env file
 
-	Setting up password restet in Stormpath
+* Setting up password reset in Stormpath
+* Setting up groups in strompath
 
 ## Strompath
 
@@ -84,6 +85,7 @@ $.ajax({
 })
 ```
 
+#### Field Structure
 	name: required
 	startDateTime: required
 	endDateTime: required

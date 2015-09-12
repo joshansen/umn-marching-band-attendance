@@ -29,7 +29,7 @@ module.exports = function createEventsModel(connection){
 				this.find(createQuery(queryArray)).exec(function(err, records){
 					if(err) return reject(records);
 					return resolve(records);
-				})
+				});
 			}.bind(this));
 
 			function createQuery(queryArray){
@@ -73,7 +73,7 @@ module.exports = function createEventsModel(connection){
 
 					Object.keys(json).forEach(function(key){
 						record[key] = json[key];
-					})
+					});
 
 					record.save(onUpdate);
 				});
@@ -87,17 +87,17 @@ module.exports = function createEventsModel(connection){
 		},
 
 		//TODO add functionality to deal with one failing, etc.
-		add: function(json, fullName, href) {
+		create: function(json, creatorFullName, creatorHref) {
 			return new Promise(function(resolve, reject){
 				if(json instanceof Array){
 					json.forEach(function(val){
-						val["createdByUser"] = fullName;
-						val["createdByHref"] = href;
+						val["createdByUser"] = creatorFullName;
+						val["createdByHref"] = creatorHref;
 					});
 				}
 				else{
-					json["createdByUser"] = fullName;
-					json["createdByHref"] = href;
+					json["createdByUser"] = creatorFullName;
+					json["createdByHref"] = creatorHref;
 				}
 
 				this.create(json, onSave);

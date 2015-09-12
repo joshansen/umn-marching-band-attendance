@@ -7,8 +7,8 @@ module.exports = function eventsController(app){
 		.get("/events", showEvents)
 		.get("/events/:eventId", showEvent)
 		.get("/api/event", listEvents)
-		.post("/api/event", addEvents)
-		.put("/api/event", updateEvent)
+		.post("/api/event", createEvents)
+		.put("/api/event", updateEvent);
 
 	function showEvents(req, res, next){
 		res.render("events/show-events");
@@ -21,7 +21,7 @@ module.exports = function eventsController(app){
 	function listEvents(req, res, next){
 		app
 			.listEvents(req.query)
-			.then(sendList, next)
+			.then(sendList, next);
 
 		function sendList(list){
 			res.json(list);
@@ -31,20 +31,20 @@ module.exports = function eventsController(app){
 	function updateEvent(req, res, next){
 		app
 			.updateEvent(req.query.id, req.body)
-			.then(sendRecord, next)
+			.then(sendRecord, next);
 
 		function sendRecord(response){
 			res.json(response);
 		}
 	}
 
-	function addEvents(req, res, next){
+	function createEvents(req, res, next){
 		app
-			.addEvents(req.body, req.user.fullName, req.user.href)
-			.then(sendRecords, next)
+			.createEvents(req.body, req.user.fullName, req.user.href)
+			.then(sendRecords, next);
 
 		function sendRecords(records){
-			res.json(records)
+			res.json(records);
 		}
 	}
 

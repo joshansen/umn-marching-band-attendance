@@ -6,6 +6,8 @@ var Promise = require("promise");
 module.exports = function createBandMembersModel(connection){
 
 	var Schema = mongoose.Schema({
+		createdByUser: { type: String, required: true},
+		createdByHref: { type: String, required: true},
 		userHref: { type: String },
 		name: { type: String, required: true },
 		email: { type: String, required: true },
@@ -17,21 +19,48 @@ module.exports = function createBandMembersModel(connection){
 	Schema.plugin(timestamps);
 
 	Schema.statics = {
-		createUser: function(memberId, role){
+		create: function(json){
 			return;
 		},
 
-		updateUserRole: function(userHref, role){
-			return;
+		//should only allow to update some not all if it's an update self situation
+		update: function(userHref, json){
+			return new Promise(function(resolve, reject){
+				this.findOne({"userHref":userHref}, function(err, record){
+					if(err) return reject(record);
+
+					Object.keys(json).forEach(function(key){
+						record[key] = json[key];
+					});
+
+					record.save(onUpdate);
+				});
+
+				function onUpdate(err, response){
+					if(err) reject(record);
+					resolve(response);
+				}
+
+			}.bind(this));
 		},
 
-		getByUser: function (userHref){
-			return;
+		get: function (userHref){
+			return new Promise(function(resolve, reject){
+				this.findOne({"userHref":userHref}).exec(function(err, records){
+					if(err) return reject(records);
+					return resolve(records);
+				});
+			}.bind(this));
+		},
+
+		list: function (){
+			return new Promise(function(resolve, reject){
+				this.find({}).exec(function(err, records){
+					if(err) return reject(records);
+					return resolve(records);
+				});
+			}.bind(this));
 		}
-
-	};
-
-	Schema.methods = {
 
 	};
 

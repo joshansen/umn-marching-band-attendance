@@ -43,12 +43,28 @@ App.prototype.onLost = function() {
 
 App.prototype.listEvents = function(queryArray) {
 	return this.Events.list(queryArray);
-}
+};
 
 App.prototype.updateEvent = function(id, json) {
 	return this.Events.update(id, json);
-}
+};
 
-App.prototype.addEvents = function(json, fullName, href) {
-	return this.Events.add(json, fullName, href);
-}
+App.prototype.createEvents = function(json, creatorFullName, creatorHref) {
+	return this.Events.create(json, creatorFullName, creatorHref);
+};
+
+App.prototype.listMembers = function() {
+	return this.BandMembers.list();
+};
+
+App.prototype.getMember = function(userHref) {
+	return this.BandMembers.get(userHref);
+};
+
+App.prototype.updateMember = function(userHref, json) {
+	return this.BandMembers.update(userHref, json);
+};
+
+App.prototype.createMembers = function(json) {
+	return this.BandMembers.create(json);
+};

@@ -26,7 +26,8 @@ module.exports = function createAttendanceRecordsModel(connection){
 	Schema.plugin(timestamps);
 
 	Schema.statics = {
-		get: function(id) {
+		//id, user, event, disputed, confirmed, present
+		list: function(id) {
 			return new Promise(function(resolve, reject) {
 				this.findById(id).exec(function(err, record) {
 					if (err) return reject(err);
@@ -37,24 +38,14 @@ module.exports = function createAttendanceRecordsModel(connection){
 		},
 
 		//TODO Create this function
-		getAll: function() {
-			return;
-		},
-
-		//TODO Create this function
-		getAllForDate: function(date) {
-			return;
-		},
-
-		//TODO Create this function
-		getAllForUser: function(user) {
-			return;
-		},
-
-		//TODO Create this function
 		getTotalMakeupMinutes: function(user) {
 			return;
-		}
+		},
+
+		//TODO Create this function
+		add: function(json) {
+			return;
+		},
 
 	};
 
