@@ -11,7 +11,7 @@ var router = require("./router");
 module.exports = function Web(app, config){
 	var web = express();
 
-	var icon = path.join(__dirname, "public", "favicon.ico");
+	var icon = path.join(__dirname, "public", "img/favicon.ico");
 
 	web.set("views", "./views")
 		.set("view engine", "jade")

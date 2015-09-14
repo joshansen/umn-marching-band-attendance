@@ -12,6 +12,105 @@ Setting them up in .env file
 * Setting up password reset in Stormpath
 * Setting up groups in Stormpath
 
+## Developing pages
+
+* Publicly available libraries should be retrieved from a CDN e.g. JQuery, Bootstrap, etc. th
+* Javascript files should be added to public/js
+* CSS files should be added to public/css
+* Images should be added to public/img
+* Pages (to be rendered server-side and currently being written in Jade), should be updated in views
+
+## API
+
+### General
+
+#### Interacting with the API via Javascript/JQuery
+
+Use the following example (which is dependent on JQuery) to structure your javascript to POST to the API. This example POSTs an array or object, arrayOrObject, to the url, 'api/event', and calls successCallback on success and failureCallback on failure.
+
+```javascript
+$.ajax({
+  url: 'api/event',
+  type: 'POST',
+  data: JSON.stringify(arrayOrObject),
+  contentType: 'application/json; charset=utf-8',
+  dataType: 'json',
+  success: successCallback,
+  failure: failureCallback
+})
+```
+
+The following javascript uses a PUT request with the above parameters.
+
+```javascript
+$.ajax({
+  url: 'api/event',
+  type: 'PUT',
+  data: JSON.stringify(arrayOrObject),
+  contentType: 'application/json; charset=utf-8',
+  dataType: 'json',
+  success: successCallback,
+  failure: failureCallback
+})
+```
+
+#### URL parameters
+
+The API often requires URL parameters to function. These parameters are listed in the commands section and should be appended to the url as follows:
+
+```
+http://base-url?parameter1=example1&parameter2=example2&parameter3=example3
+```
+
+This pattern may be continued for as many parameters as needed.
+
+### Events
+
+This is no longer being created.
+
+#### Field Structure
+
+| Field | Required / Optional | Type | Additional |
+|---|---|---|---|
+| name | Required | String | |
+| startDateTime | Required | Date ||
+| endDateTime | Required | Date ||
+| description | Optional | String ||
+| type | Required | String | acceptable values: required, make up |
+| deleted | Required | Boolean | default: false |
+| createdByUser| Required | String | created automatically |
+| createdByHref | Required | String | created automatically |
+| updated_at | Required | Date | created automatically |
+| created_at | Required | Date | created automatically |
+
+#### Commands
+
+| Action | Request Type | URL | Parameters |
+| --- | --- | --- | --- |
+| List Events (results restricted by parameters) | GET | api/event | startDateLessThan, startDateGreaterThan, createdByUser, createdByHref, type, id, deleted |
+| Update one event | PUT | api/event | id |
+| Create one or many events | POST | api/event |  |
+
+### Band Members
+
+This functionality is in progress, and not currently functional
+
+### Attendance Records
+
+This functionality is in progress, and not currently functional
+
+### Absence Requests
+
+This functionality is in progress, and not currently functional
+
+### Property
+
+This functionality may be added at a later point
+
+### Property Checkout
+
+This functionality may be added at a later point
+
 ## Stormpath
 
 	req.user =
@@ -60,69 +159,4 @@ Setting them up in .env file
 			href:
 		}
 	}
-
-## API
-
-### General
-
-#### Interacting with the API via Javascript/Jquery
-
-Use the following example (which is dependent on JQuery) to structure your javascript to POST to the API. This example POSTs an array or object, arrayOrObject, to the url, 'api/event', and calls successCallback on success and failureCallback on failure.
-
-```javascript
-$.ajax({
-  url: 'api/event',
-  type: 'POST',
-  data: JSON.stringify(arrayOrObject),
-  contentType: 'application/json; charset=utf-8',
-  dataType: 'json',
-  success: successCallback,
-  failure: failureCallback
-})
-```
-
-The following javascript uses a PUT request with the above parameters.
-
-```javascript
-$.ajax({
-  url: 'api/event',
-  type: 'PUT',
-  data: JSON.stringify(arrayOrObject),
-  contentType: 'application/json; charset=utf-8',
-  dataType: 'json',
-  success: successCallback,
-  failure: failureCallback
-})
-```
-
-### Events
-
-* The url for the Events API is /api/event
-* Can GET for list of events and query for start date less than, start date greater than, created by href, created by name, type, deleted, and id
-* Can PUT to update event at /api/event?id=ID
-* Can POST to create one or multiple events in an array
-* JSON things, put multiple documents, proper JQuery don't use $.put, query string parameters
-
-#### Field Structure
-
-| Field | Required / Optional | Type | Additional |
-|---|---|---|---|
-| name | Required | String | |
-| startDateTime | Required | Date ||
-| endDateTime | Required | Date ||
-| description | Optional | String ||
-| type | Required | String | Acceptable values: required, make up |
-| deleted | Required | Boolean | default: false |
-| createdByUser| Required | String | created automatically |
-| createdByHref | Required | String | created automatically |
-| updated_at | Required | Date | created automatically |
-| created_at | Required | Date | created automatically |
-
-#### Commands
-
-| Action | Request Type | URL | Parameters |
-| --- | --- | --- | --- |
-| List | GET | api/event | startDateLessThan, startDateGreaterThan, createdByUser, createdByHref, type, id, deleted |
-| Update | PUT | api/event | id |
-| Create | POST | api/event |  |
 
