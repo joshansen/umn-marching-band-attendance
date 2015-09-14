@@ -4,17 +4,17 @@ Attempt to make an attendance application for the University of Minnesota marchi
 
 ## Getting Started
 
-Heroku
-Addons: Mongolab, Stormpath
-Getting config variables
-Setting them up in .env file
+* Heroku
+* Addons: Mongolab, Stormpath
+* Getting config variables
+* Setting them up in .env file
 
-* Setting up password reset in Stormpath
+* [Setting up password reset in Stormpath](https://devcenter.heroku.com/articles/stormpath#using-with-express-js-using-password-reset)
 * Setting up groups in Stormpath
 
 ## Developing pages
 
-* Publicly available libraries should be retrieved from a CDN e.g. JQuery, Bootstrap, etc. th
+* Publicly available libraries should be retrieved from a CDN e.g. JQuery, Bootstrap, etc.
 * Javascript files should be added to public/js
 * CSS files should be added to public/css
 * Images should be added to public/img
@@ -87,7 +87,7 @@ This is no longer being created.
 
 | Action | Request Type | URL | Parameters |
 | --- | --- | --- | --- |
-| List Events (results restricted by parameters) | GET | api/event | startDateLessThan, startDateGreaterThan, createdByUser, createdByHref, type, id, deleted |
+| List events (results restricted by parameters) | GET | api/event | startDateLessThan, startDateGreaterThan, createdByUser, createdByHref, type, id, deleted |
 | Update one event | PUT | api/event | id |
 | Create one or many events | POST | api/event |  |
 
@@ -113,50 +113,62 @@ This functionality may be added at a later point
 
 ## Stormpath
 
-	req.user =
-	{
-		href:,
-		username:,
-		email:,
-		givenName:,
-		middleName:,
-		surname:,
-		fullName:,
-		status:,
-		createdAt:,
-		modifiedAt:,
-		emailVerificationToken:,
-		customData:{
-			href:,
-			createdAt:,
-			modifiedAt:
-		},
-		providerData:{
-			href:
-		},
-		directory:{
-			href:
-		},
-		tenant:{
-			href:
-		},
-		groups:{
-			href:
-		},
-		applications:{
-			href:
-		},
-		groupMemberships:{
-			href:
-		},
-		apiKeys:{
-			href:
-		},
-		accessTokens:{
-			href:
-		},
-		refreshTokens:{
-			href:
-		}
-	}
+### Roles
 
+|Role|Description|
+|---|---|
+|admin|Full admin rights for executive staff, business manager, etc.|
+|general-staff|General band staff|
+|attendance-leader|Band attendance leader|
+|member|Regular band member|
+
+### Response returned form req.user for reference
+
+```javascript
+req.user =
+{
+	href:,
+	username:,
+	email:,
+	givenName:,
+	middleName:,
+	surname:,
+	fullName:,
+	status:,
+	createdAt:,
+	modifiedAt:,
+	emailVerificationToken:,
+	customData:{
+		href:,
+		createdAt:,
+		modifiedAt:
+	},
+	providerData:{
+		href:
+	},
+	directory:{
+		href:
+	},
+	tenant:{
+		href:
+	},
+	groups:{
+		href:
+	},
+	applications:{
+		href:
+	},
+	groupMemberships:{
+		href:
+	},
+	apiKeys:{
+		href:
+	},
+	accessTokens:{
+		href:
+	},
+	refreshTokens:{
+		href:
+	}
+}
+```

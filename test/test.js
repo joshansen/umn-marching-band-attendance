@@ -28,6 +28,7 @@ var eventTests = {
 		});
 	},
 
+	//Make this test use promises or something other than a callback like it is
 	updateOne: function(){
 
 		var object = {name: "Test 999", startDateTime: Date.now(), endDateTime: Date.now() + 10000, description: "Sample description", type: "required" };
@@ -55,6 +56,7 @@ var eventTests = {
 		}
 	},
 
+	//Add tests for checking to make sure all of the parameters work properly
 	listAll: function(){
 		var list;
 		$.ajax({

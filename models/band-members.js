@@ -19,6 +19,28 @@ module.exports = function createBandMembersModel(connection){
 	Schema.plugin(timestamps);
 
 	Schema.statics = {
+		// function createAccount(req, res, form) {
+		//   var view = req.app.get('stormpathRegistrationView');
+
+		//   return function(account, callback) {
+		//     req.app.get('stormpathApplication').createAccount(account, function(err, acc) {
+		//       if (err) {
+		//         helpers.render(view, res, { error: err.userMessage, form: form });
+		//         req.app.get('stormpathLogger').info('A user tried to create a new account, but this operation failed with an error message: ' + err.developerMessage);
+		//         callback(err);
+		//       } else if (req.app.get('stormpathEnableAccountVerification') && acc.status === 'UNVERIFIED') {
+		//         helpers.render(req.app.get('stormpathAccountVerificationEmailSentView'), res, { email: acc.email });
+		//         callback();
+		//       } else {
+		//         req.stormpathSession.user = acc.href;
+		//         res.locals.user = acc;
+		//         req.user = acc;
+		//         callback();
+		//       }
+		//     });
+		//   };
+		// }
+
 		createMembers: function(json){
 			return;
 		},

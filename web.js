@@ -21,12 +21,14 @@ module.exports = function Web(app, config){
 		.use(bodyParser.json())
 		.use(bodyParser.urlencoded({ extended: true }));
 
+//TODO figure out how sessions are being stored and if I hit a different server, am I still logged in?
 	web.use(stormpath.init(web, {
 		apiKeyId:     config.stormpath_api_key_id,
 		apiKeySecret: config.stormpath_api_key_secret,
 		secretKey:    config.stormpath_secret_key,
 		application:  config.stormpath_url,
-		expandCustomData: true
+		expandCustomData: true,
+		enableForgotPassword: true
 	}));
 
 	web.use(router(app));
