@@ -8,7 +8,7 @@ module.exports = function eventsController(app){
 		.get("/band-members", showMembers)
 		.get("/band-members/:memberId", showMember)
 		.get("/api/band-members", listMembers)
-		.post("/api/band-members", creaeMembers)
+		.post("/api/band-members", createMembers)
 		.put("/api/band-members", updateMember)
 		.get("/api/self", getSelf)
 		.put("/api/self", updateSelf);
@@ -33,17 +33,17 @@ module.exports = function eventsController(app){
 
 	function updateMember(req, res, next){
 		app
-			.updateMember(req.query.id, req.body)
+			.updateMember(req.query.href, req.body)
 			.then(sendRecord, next);
 
-		function sendRecord(response){
-			res.json(response);
+		function sendRecord(record){
+			res.json(record);
 		}
 	}
 
 	function createMembers(req, res, next){
 		app
-			.createMembers(req.body, req.user.fullName, req.user.href)
+			.createMembers(req.body)
 			.then(sendRecords, next);
 
 		function sendRecords(records){
@@ -53,21 +53,21 @@ module.exports = function eventsController(app){
 
 	function getSelf(req, res, next){
 		app
-			.getMember()
-			.then(sendList, next);
+			.getMember(req.user.href)
+			.then(sendRecord, next);
 
-		function sendList(list){
-			res.json(list);
+		function sendRecord(record){
+			res.json(record);
 		}
 	}
 
 	function updateSelf(req, res, next){
 		app
-			.updateMember(req.query.id, req.body)
+			.updateMember(req.user.href, req.body)
 			.then(sendRecord, next);
 
-		function sendRecord(response){
-			res.json(response);
+		function sendRecord(record){
+			res.json(record);
 		}
 	}
 

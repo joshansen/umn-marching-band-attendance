@@ -24,7 +24,7 @@ module.exports = function createEventsModel(connection){
 
 	Schema.statics = {
 		//supports for url query string: date range, createdByHref, createdByName, type, deleted and id
-		list: function(queryArray) {
+		listEvents: function(queryArray) {
 			return new Promise(function(resolve, reject){
 				this.find(createQuery(queryArray)).exec(function(err, records){
 					if(err) return reject(records);
@@ -66,13 +66,16 @@ module.exports = function createEventsModel(connection){
 			}
 		},
 
-		update: function(id, json) {
+		updateEvent: function(id, json) {
+			var prohibitedFields = ["createdByUser", "createdByHref"];
 			return new Promise(function(resolve, reject){
 				this.findOne({"_id":id}, function(err, record){
 					if(err) return reject(record);
 
 					Object.keys(json).forEach(function(key){
-						record[key] = json[key];
+						if(prohibitedFields.indexOf(key) == -1){
+							record[key] = json[key];
+						}
 					});
 
 					record.save(onUpdate);
@@ -87,7 +90,7 @@ module.exports = function createEventsModel(connection){
 		},
 
 		//TODO add functionality to deal with one failing, etc.
-		create: function(json, creatorFullName, creatorHref) {
+		createEvents: function(json, creatorFullName, creatorHref) {
 			return new Promise(function(resolve, reject){
 				if(json instanceof Array){
 					json.forEach(function(val){
@@ -112,7 +115,7 @@ module.exports = function createEventsModel(connection){
 				}
 
 			}.bind(this));
-		},
+		}
 
 	};
 

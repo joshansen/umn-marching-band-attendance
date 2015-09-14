@@ -19,12 +19,12 @@ module.exports = function createBandMembersModel(connection){
 	Schema.plugin(timestamps);
 
 	Schema.statics = {
-		create: function(json){
+		createMembers: function(json){
 			return;
 		},
 
 		//should only allow to update some not all if it's an update self situation
-		update: function(userHref, json){
+		updateMember: function(userHref, json){
 			return new Promise(function(resolve, reject){
 				this.findOne({"userHref":userHref}, function(err, record){
 					if(err) return reject(record);
@@ -44,7 +44,7 @@ module.exports = function createBandMembersModel(connection){
 			}.bind(this));
 		},
 
-		get: function (userHref){
+		getMember: function (userHref){
 			return new Promise(function(resolve, reject){
 				this.findOne({"userHref":userHref}).exec(function(err, records){
 					if(err) return reject(records);
@@ -53,7 +53,7 @@ module.exports = function createBandMembersModel(connection){
 			}.bind(this));
 		},
 
-		list: function (){
+		listMembers: function (){
 			return new Promise(function(resolve, reject){
 				this.find({}).exec(function(err, records){
 					if(err) return reject(records);

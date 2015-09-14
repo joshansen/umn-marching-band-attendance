@@ -42,29 +42,29 @@ App.prototype.onLost = function() {
 };
 
 App.prototype.listEvents = function(queryArray) {
-	return this.Events.list(queryArray);
+	return this.Events.listEvents(queryArray);
 };
 
 App.prototype.updateEvent = function(id, json) {
-	return this.Events.update(id, json);
+	return this.Events.updateEvent(id, json);
 };
 
 App.prototype.createEvents = function(json, creatorFullName, creatorHref) {
-	return this.Events.create(json, creatorFullName, creatorHref);
+	return this.Events.createEvents(json, creatorFullName, creatorHref);
 };
 
 App.prototype.listMembers = function() {
-	return this.BandMembers.list();
+	return this.BandMembers.listMembers();
 };
 
 App.prototype.getMember = function(userHref) {
-	return this.BandMembers.get(userHref);
+	return this.BandMembers.getMember(userHref);
 };
 
 App.prototype.updateMember = function(userHref, json) {
-	return this.BandMembers.update(userHref, json);
+	return this.BandMembers.updateMembers(userHref, json);
 };
 
 App.prototype.createMembers = function(json) {
-	return this.BandMembers.create(json);
+	return this.BandMembers.createMembers(json);
 };
