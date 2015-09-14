@@ -79,8 +79,6 @@ This pattern may be continued for as many parameters as needed.
 
 ### Events
 
-This is no longer being created.
-
 #### Field Structure
 
 | Field | Required / Optional | Type | Additional |
