@@ -67,7 +67,7 @@ module.exports = function createEventsModel(connection){
 		},
 
 		updateEvent: function(id, json) {
-			var prohibitedFields = ["createdByUser", "createdByHref"];
+			var prohibitedFields = ["createdByUser", "createdByHref", "_id"];
 			return new Promise(function(resolve, reject){
 				this.findOne({"_id":id}, function(err, record){
 					if(err) return reject(record);

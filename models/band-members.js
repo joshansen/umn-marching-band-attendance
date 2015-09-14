@@ -2,8 +2,9 @@ var mongoose = require("mongoose");
 var logger = require("logfmt");
 var timestamps = require("mongoose-timestamps");
 var Promise = require("promise");
+var Password = require("node-password").Password;
 
-module.exports = function createBandMembersModel(connection){
+module.exports = function createBandMembersModel(connection, app){
 
 	var Schema = mongoose.Schema({
 		createdByUser: { type: String, required: true},
@@ -11,38 +12,69 @@ module.exports = function createBandMembersModel(connection){
 		userHref: { type: String },
 		name: { type: String, required: true },
 		email: { type: String, required: true },
+		//Add validation for sections, include staff
 		section: { type: String, required: true },
 		part: { type: String, required: true },
+		//Add validation for roles
 		role: { type: String, required: true }
 	});
 
 	Schema.plugin(timestamps);
 
 	Schema.statics = {
-		// function createAccount(req, res, form) {
-		//   var view = req.app.get('stormpathRegistrationView');
+		createMembers: function(json, creatorFullName, creatorHref, stormapp){
+			var mongooseThis = this;
+			//make loop over array
+			var account = {
+				givenName: json.givenName,
+				surname: json.surname,
+				email: json.email,
+				password: (new Password).toString()
+			};
 
-		//   return function(account, callback) {
-		//     req.app.get('stormpathApplication').createAccount(account, function(err, acc) {
-		//       if (err) {
-		//         helpers.render(view, res, { error: err.userMessage, form: form });
-		//         req.app.get('stormpathLogger').info('A user tried to create a new account, but this operation failed with an error message: ' + err.developerMessage);
-		//         callback(err);
-		//       } else if (req.app.get('stormpathEnableAccountVerification') && acc.status === 'UNVERIFIED') {
-		//         helpers.render(req.app.get('stormpathAccountVerificationEmailSentView'), res, { email: acc.email });
-		//         callback();
-		//       } else {
-		//         req.stormpathSession.user = acc.href;
-		//         res.locals.user = acc;
-		//         req.user = acc;
-		//         callback();
-		//       }
-		//     });
-		//   };
-		// }
+			var record = {
+				name: json.givenName + " " + json.surname,
+				email: json.email,
+				createdByUser: creatorFullName,
+				createdByHref: creatorHref,
+				section: json.section,
+				part: json.part,
+				role: json.role
+			};
 
-		createMembers: function(json){
-			return;
+			//save record to database
+			return new Promise(function(resolve, reject){
+				stormapp.createAccount(account, function(err, acc) {
+		      if (err) {
+		       	logger.log({error: "Error creating stormpath account: " + err.developerMessage});
+		       	return reject(acc);
+		      }
+		      else {
+		      	logger.log({success: "Account created for: " + acc.fullName});
+
+		        record.userHref = acc.href;
+		        //addToGroup must be supplied an href. Don't use record.role instead lookup href.
+		        acc.addToGroup( record.role, function(err, membership){
+		        	if(err){
+		        		logger.log({error: "Error adding stormpath account to group: " + err});
+		       		return reject(acc);
+		        	}
+		        	logger.log({success: "Account for " + acc.fullName + " added to " + JSON.stringify(membership.group)});
+		        	mongooseThis.create(record, onCreate);
+		        })
+
+		      }
+		    });
+
+		    function onCreate(err, records){
+		    	if (err) {
+						logger.log({ type: 'error', msg: 'could not save', error: err });
+						return reject(err);
+					}
+					logger.log({ type: 'info', msg: 'saved event(s)'});
+					return resolve(records);
+		    }
+			}.bind(this));
 		},
 
 		//should only allow to update some not all if it's an update self situation

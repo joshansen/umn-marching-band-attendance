@@ -65,6 +65,6 @@ App.prototype.updateMember = function(userHref, json) {
 	return this.BandMembers.updateMembers(userHref, json);
 };
 
-App.prototype.createMembers = function(json) {
-	return this.BandMembers.createMembers(json);
+App.prototype.createMembers = function(json, creatorFullName, creatorHref, stormapp) {
+	return this.BandMembers.createMembers(json, creatorFullName, creatorHref, stormapp);
 };

@@ -43,7 +43,7 @@ module.exports = function eventsController(app){
 
 	function createMembers(req, res, next){
 		app
-			.createMembers(req.body)
+			.createMembers(req.body, req.user.fullName, req.user.href, req.app.get('stormpathApplication'))
 			.then(sendRecords, next);
 
 		function sendRecords(records){

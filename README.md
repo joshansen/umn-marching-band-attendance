@@ -81,26 +81,29 @@ This pattern may be continued for as many parameters as needed.
 
 #### Field Structure
 
-| Field | Required / Optional | Type | Additional |
-|---|---|---|---|
-| name | Required | String | |
-| startDateTime | Required | Date ||
-| endDateTime | Required | Date ||
-| description | Optional | String ||
-| type | Required | String | acceptable values: required, make up |
-| deleted | Required | Boolean | default: false |
-| createdByUser| Required | String | created automatically |
-| createdByHref | Required | String | created automatically |
-| updated_at | Required | Date | created automatically |
-| created_at | Required | Date | created automatically |
+| Field | Required / Optional | Type | Editable | Additional |
+|---|---|---|---|---|
+| _id | Required | id | false | created automatically |
+| name | Required | String | true |  |
+| startDateTime | Required | Date | true |  |
+| endDateTime | Required | Date | true |  |
+| description | Optional | String | true |  |
+| type | Required | String | true | acceptable values: required, make up |
+| deleted | Required | Boolean | true | default: false |
+| createdByUser| Required | String | false | created automatically |
+| createdByHref | Required | String | false | created automatically |
+| updated_at | Required | Date | false | created automatically |
+| created_at | Required | Date | false | created automatically |
 
 #### Commands
 
-| Action | Request Type | URL | Parameters |
-| --- | --- | --- | --- |
-| List events (results restricted by parameters) | GET | api/event | startDateLessThan, startDateGreaterThan, createdByUser, createdByHref, type, id, deleted |
-| Update one event | PUT | api/event | id |
-| Create one or many events | POST | api/event |  |
+URL: api/event
+
+| Action | Request Type | Parameters | Request Data | Response Data|
+| --- | --- | --- | --- | --- |
+| List events (results restricted by parameters) | GET | startDateLessThan, startDateGreaterThan, createdByUser, createdByHref, type, id, deleted | | All fields |
+| Update one event | PUT | id | All editable fields | All fields |
+| Create one or many events | POST |  | All editable fields | All fields |
 
 ### Band Members
 
