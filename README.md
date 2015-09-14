@@ -4,13 +4,26 @@ Attempt to make an attendance application for the University of Minnesota marchi
 
 ## Getting Started
 
-* Heroku
-* Addons: Mongolab, Stormpath
-* Getting config variables
-* Setting them up in .env file
+1. [Signup and get started with Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction)
+2. Heroku create
+3. Heroku addons:add Mongolab
+4. Heroku addons:add Stormpath
+5. Getting config variables: heroku config
+6. Add config variable to .env file using the valueless template below:
 
-* [Setting up password reset in Stormpath](https://devcenter.heroku.com/articles/stormpath#using-with-express-js-using-password-reset)
-* Setting up groups in Stormpath
+		```
+		MONGOLAB_URI=
+		STORMPATH_API_KEY_ID=
+		STORMPATH_API_KEY_SECRET=
+		STORMPATH_URL=
+		VERBOSE=true
+		```
+
+7. [Set up password reset route in Stormpath for your app url](https://devcenter.heroku.com/articles/stormpath#using-with-express-js-using-password-reset)
+8. Create the required groups in Stormpath:
+	1. Heroku addons:open stormpath,
+	2. Find groups section
+	3. Add groups that are listed below in the stormpath section
 
 ## Developing pages
 
