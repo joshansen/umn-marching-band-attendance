@@ -107,8 +107,8 @@ URL: api/event
 | Action | Request Type | Parameters | Request Data | Response Data|
 | --- | --- | --- | --- | --- |
 | List events (results restricted by parameters) | GET | startDateLessThan, startDateGreaterThan, createdByUser, createdByHref, type, id, deleted | | All fields |
-| Update one event | PUT | id | All editable fields | All fields |
-| Create one or many events | POST |  | All editable fields | All fields |
+| Update one event | PUT | id | Any editable fields | All fields |
+| Create one or many events | POST |  | All required fields, description optional but allowed | All fields |
 
 ### Band Members
 
