@@ -4,26 +4,31 @@ Attempt to make an attendance application for the University of Minnesota marchi
 
 ## Getting Started
 
+### Setting up your own heroku instance
+
 1. [Signup and get started with Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction)
 2. Heroku create
 3. Heroku addons:add Mongolab
 4. Heroku addons:add Stormpath
-5. Getting config variables: heroku config
-6. Add config variable to .env file using the valueless template below:
-
-		```
-		MONGOLAB_URI=
-		STORMPATH_API_KEY_ID=
-		STORMPATH_API_KEY_SECRET=
-		STORMPATH_URL=
-		VERBOSE=true
-		```
-
-7. [Set up password reset route in Stormpath for your app url](https://devcenter.heroku.com/articles/stormpath#using-with-express-js-using-password-reset)
-8. Create the required groups in Stormpath:
+5. [Set up password reset route in Stormpath for your app url](https://devcenter.heroku.com/articles/stormpath#using-with-express-js-using-password-reset)
+6. Create the required groups in Stormpath:
 	1. Heroku addons:open stormpath,
 	2. Find groups section
 	3. Add groups that are listed below in the stormpath section
+
+###Testing locally
+
+1. Get config variables: heroku config
+2. Add config variable to .env file in main directory using the valueless template below:
+
+	```
+	MONGOLAB_URI=
+	STORMPATH_API_KEY_ID=
+	STORMPATH_API_KEY_SECRET=
+	STORMPATH_URL=
+	VERBOSE=true
+	```
+3. Run npm start
 
 ## Developing pages
 
@@ -31,7 +36,7 @@ Attempt to make an attendance application for the University of Minnesota marchi
 * Javascript files should be added to public/js
 * CSS files should be added to public/css
 * Images should be added to public/img
-* Pages (to be rendered server-side and currently being written in Jade), should be updated in views
+* Pages (to be rendered server-side and currently being written in Jade, which can be changed), should be updated in views
 
 ## API
 
